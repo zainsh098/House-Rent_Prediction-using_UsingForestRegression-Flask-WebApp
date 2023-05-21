@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>House Price Prediction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: linear-gradient(120deg, #ff8a00, #e52e71);
+      font-family: 'Montserrat', sans-serif;
+      color: #ffffff;
+    }
+
+    .container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .card {
+      width: 400px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .card-body {
+      padding: 40px;
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 700;
+      text-align: center;
+      margin-bottom: 30px;
+      color: #ffffff;
+    }
+    select,
+  select option {
+    background-color: #ffdab9; /* Change this to the desired color */
+    color: #000000; /* Change this to the desired text color */
+  }
+    label {
+      font-weight: 700;
+      color: #ffffff;
+    }
+
+    select,
+    input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      border-radius: 4px;
+      border: none;
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 400;
+      margin-bottom: 20px;
+      transition: background-color 0.3s ease;
+    }
+
+    select:focus,
+    input[type="text"]:focus {
+      outline: none;
+      background-color: rgba(255, 255, 255, 0.3);
+    }
+
+    .btn-primary {
+      background-color: #ffffff;
+      color: #ff8a00;
+      border: none;
+      border-radius: 4px;
+      padding: 12px 20px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background-color: #ffdab9;
+    }
+
+    .alert {
+      padding: 10px;
+      border-radius: 4px;
+      margin-bottom: 20px;
+    }
+
+    .alert-danger {
+      background-color: #e52e71;
+    }
+
+    .alert-success {
+      background-color: #ff8a00;
+    }
+
+    .alert-danger,
+    .alert-success {
+      color: #ffffff;
+      font-size: 14px;
+      font-weight: 700;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="card-body">
+        <h1>House Price Prediction</h1>
+
+        {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+          {{ error_message }}
+        </div>
+        {% endif %}
+
+        <form action="{{ url_for('predict') }}" method="post">
+          <div class="form-group">
+            <label for="BHK">BHK:</label>
+            <input type="text" id="BHK" class="form-control" name="BHK" required>
+          </div>
+          <div class="form-group">
+            <label for="Size">Size:</label>
+            <input type="text" id="Size" class="form-control" name="Size" required>
+          </div>
+          <div class="form-group">
+            <label for="City">Choose a city:</label>
+            <select id="City" class="form-control" name="City">
+              <option value="5">Mumbai</option>
+              <option value="4">Bangalore</option>
+              <option value="3">Hyderabad</option>
+              <option value="2">Delhi</option>
+              <option value="1">Chennai</option>
+              <option value="0">Kolkata</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="FurnishingStatus">Choose a Furnishing Status:</label>
+            <select id="FurnishingStatus" class="form-control" name="FurnishingStatus">
+              <option value="2">Furnished</option>
+              <option value="1">Semi-Furnished</option>
+              <option value="0">Unfurnished</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="Bathroom">Bathroom:</label>
+            <input type="text" id="Bathroom" class="form-control" name="Bathroom" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Predict</button>
+        </form>
+
+        <br>
+        <br>
+        {% if prediction_text %}
+        <div class="alert alert-success" role="alert">
+          {{ prediction_text }}
+        </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</body>
+</html>
